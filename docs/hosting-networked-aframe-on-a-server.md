@@ -66,6 +66,19 @@ To integrate XirSys into your hosted NAF instance follow these steps:
 
 If your experience uses WebRTC audio functionality, you need to setup an SSL certificate for your domain name (so your domain uses https instead of http). This is neccessary because web browsers enforce a strict rule that in order to use WebRTC audio streaming your web page must be encrypted. This is to stop man-in-the-middle attacks from being able to take control of your computer's microphone or webcam.
 
+To acchieve this one needs to insert:
+
+    const https = require("https");
+    const fs = require("fs");
+    var privateKey  = fs.readFileSync('key.pem', 'utf8');
+    var certificate = fs.readFileSync('cert.pem', 'utf8');
+    var credentials = {key: privateKey, cert: certificate};
+
+Add the keys, change the http references to https and start the server with the credentials:
+
+    var webServer = https.createServer(credentials, app);
+
+
 
 ## Other Solutions
 
